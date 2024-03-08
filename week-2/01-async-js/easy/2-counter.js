@@ -1,4 +1,6 @@
-setInterval(()=>{
+const timer = () =>{
     console.clear();
     console.log(new Date().toLocaleTimeString());
-},1000)
+    setTimeout(timer,1000);
+}
+timer()
