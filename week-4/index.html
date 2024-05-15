@@ -8,7 +8,25 @@
     let oldTodoState = [];
 
     function addTodoToDom() {
-      
+      document.getElementById("todos").innerHTML = "";
+      todoState.map(todo => {
+        const newTodo = createTodo(todo)
+        document.getElementById("todos").appendChild(newTodo)
+      })
+    }
+
+    
+
+    function createTodo(todo){
+      const container = document.createElement("div");
+      const titleElements = document.createElement("h4");
+      const descriptionElement = document.createElement("h6");
+      container.id = globalId
+      titleElements.innerText = todo.title;
+      descriptionElement.innerText = todo.description
+      container.appendChild(titleElements)
+      container.appendChild(descriptionElement)
+      return container
     }
 
     function removeTodoFromDom(todo) {
@@ -25,9 +43,18 @@
       // 1. added
       // 2. deleted
       // 3. updated
+      
       const added = [];
       const deleted = [];
       const updated = [];
+      if(todoState.length > oldTodoState){
+        for(let i = oldTodoState.length ; i < todoState.length ; i++){
+          added.push(newTodos[i]);
+        }
+      }else{
+        
+      }
+      
       // calculate these 3 arrays
       // call addTodo, removeTodo, updateTodo functions on each of the
       // elements
@@ -37,6 +64,7 @@
     function addTodo() {
       const title = document.getElementById("title").value;
       const description = document.getElementById("description").value;
+      oldTodoState = [...todoState]
       todoState.push({
         title: title,
         description: description,
@@ -44,6 +72,8 @@
       })
       updateState(todoState);
     }
+
+    window.setInterval(addTodoToDom,1000)
   </script>
 </head>
 
